@@ -1,0 +1,12 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Detail" : {
+      "comment" : "WeatherDetailViewController title"
+    },
+    "Open Weather" : {
+      "comment" : "WeatherViewController title"
+    }
+  },
+  "version" : "1.0"
+}

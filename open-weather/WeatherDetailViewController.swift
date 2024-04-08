@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
-final class WeatherDetailViewController: UIViewController {
-    
+final class WeatherDetailViewController: BaseViewController {
+    // MARK: - Override Functions
+    override func setup() {
+        super.setup()
+        
+        self.title = String(localized: "Detail", comment: "WeatherDetailViewController title")
+    }
 }

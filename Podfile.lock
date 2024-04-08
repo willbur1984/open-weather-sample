@@ -1,0 +1,69 @@
+PODS:
+  - Alamofire (5.9.1)
+  - CombineCocoa (0.4.1)
+  - CombineExt (1.8.0)
+  - Ditko (6.0.0):
+    - KSOFontAwesomeExtensions
+    - Loki
+    - Stanley
+  - Feige (2.2.1)
+  - KSOFontAwesomeExtensions (2.0.1):
+    - Stanley
+  - Loki (2.0.1)
+  - Moya/Combine (15.0.0):
+    - Moya/Core
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Nimble (10.0.0)
+  - Quick (5.0.1)
+  - Romita (2.2.0):
+    - Feige
+  - Stanley (3.0.1)
+  - SwiftyJSON (5.0.1)
+
+DEPENDENCIES:
+  - CombineCocoa (~> 0.4)
+  - CombineExt (~> 1.0)
+  - Ditko (~> 6.0)
+  - Feige (~> 2.0)
+  - Moya/Combine (~> 15.0)
+  - Nimble (~> 10.0)
+  - Quick (~> 5.0)
+  - Romita (~> 2.0)
+  - Stanley (~> 3.0)
+  - SwiftyJSON (~> 5.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CombineCocoa
+    - CombineExt
+    - Ditko
+    - Feige
+    - KSOFontAwesomeExtensions
+    - Loki
+    - Moya
+    - Nimble
+    - Quick
+    - Romita
+    - Stanley
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  CombineCocoa: e5210dbfb480ff251078929459ac17e750e7af1d
+  CombineExt: c4daa97ef75754d8ef319bd79edeef82652f3eea
+  Ditko: 5ac2a9792b4179af2ee6b98687df96d70f1d9f3f
+  Feige: e7baef397c9ad910ac11a75a53311b3b74a8adad
+  KSOFontAwesomeExtensions: 6ffc77c8b4fb2425fe9ab6c9e60271280ec81cf5
+  Loki: 272252bb9ea40ba2ffac4fe226fe4e7f3cafa832
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
+  Quick: 749aa754fd1e7d984f2000fe051e18a3a9809179
+  Romita: ddc7d54bded04b18f29e701fb57e385870894189
+  Stanley: 888c0159ab9eee03d960465d8c4761d29b90a6dd
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+
+PODFILE CHECKSUM: dd151126e52a14dea39b0dbd368087e33a6cc67c
+
+COCOAPODS: 1.15.2
