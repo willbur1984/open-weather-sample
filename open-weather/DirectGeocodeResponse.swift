@@ -22,7 +22,6 @@ extension DirectGeocodeResponse {
         guard let latitude = json["lat"].double, let longitude = json["lon"].double else {
             return nil
         }
-        os_log("json %@", String(describing: json))
         self.latitude = latitude
         self.longitude = longitude
     }

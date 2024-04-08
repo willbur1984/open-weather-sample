@@ -2,7 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Enter city name or zip code" : {
-
+      "comment" : "TextField placeholder"
     },
     "Okay" : {
 
@@ -14,7 +14,7 @@
       "comment" : "Default error localized failure reason"
     },
     "Request Forecast" : {
-
+      "comment" : "Button title"
     },
     "Something went wrong" : {
       "comment" : "Default error localized description"

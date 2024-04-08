@@ -83,7 +83,7 @@ final class WeatherDetailViewController: BaseViewController {
                 $0.setItem(item)
             }
         }.also {
-            $0.defaultRowAnimation = .fade
+            $0.defaultRowAnimation = .none
         }
     }()
     

@@ -5,32 +5,136 @@
 //  Created by William Towe on 4/7/24.
 //
 
+import Nimble
+import Quick
+import SwiftyJSON
 import XCTest
 @testable import open_weather
 
-final class open_weatherTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+final class open_weatherTests: QuickSpec {
+    override func spec() {
+        describe("DirectGeocodeResponse") {
+            it("should be nil") {
+                let jsonString = """
+                            {
+                              "lo" : -87.6244212,
+                              "lat" : 41.875561599999997
+                            }
+                            """
+                
+                expect(DirectGeocodeResponse(json: JSON(parseJSON: jsonString))).to(beNil())
+            }
+            it("should not be nil") {
+                let jsonString = """
+                                {
+                                  "lon" : -87.6244212,
+                                  "lat" : 41.875561599999997
+                                }
+                                """
+                
+                expect(DirectGeocodeResponse(json: JSON(parseJSON: jsonString))).toNot(beNil())
+            }
+        }
+        describe("WeatherResponse") {
+            it("should not be nil") {
+                let jsonString = """
+                                {
+                                  "wind" : {
+                                    "speed" : 11.01,
+                                    "deg" : 165,
+                                    "gust" : 14
+                                  },
+                                  "timezone" : -18000,
+                                  "sys" : {
+                                    "sunset" : 1712622208,
+                                    "country" : "US",
+                                    "sunrise" : 1712575229,
+                                    "id" : 2010190,
+                                    "type" : 2
+                                  },
+                                  "coord" : {
+                                    "lat" : 41.875599999999999,
+                                    "lon" : -87.624399999999994
+                                  },
+                                  "cod" : 200,
+                                  "base" : "stations",
+                                  "main" : {
+                                    "feels_like" : 44.350000000000001,
+                                    "pressure" : 1010,
+                                    "temp_max" : 51.840000000000003,
+                                    "temp" : 48.899999999999999,
+                                    "temp_min" : 44.149999999999999,
+                                    "humidity" : 75
+                                  },
+                                  "visibility" : 10000,
+                                  "dt" : 1712557654,
+                                  "weather" : [
+                                    {
+                                      "icon" : "01n",
+                                      "main" : "Clear",
+                                      "id" : 800,
+                                      "description" : "clear sky"
+                                    }
+                                  ],
+                                  "name" : "Chicago",
+                                  "id" : 4887398,
+                                  "clouds" : {
+                                    "all" : 0
+                                  }
+                                }
+                                """
+                
+                expect(WeatherResponse(json: JSON(parseJSON: jsonString))).toNot(beNil())
+            }
+            it("should be nil") {
+                let jsonString = """
+                                {
+                                  "wind" : {
+                                    "speed" : 11.01,
+                                    "deg" : 165,
+                                    "gust" : 14
+                                  },
+                                  "timezone" : -18000,
+                                  "sys" : {
+                                    "sunset" : 1712622208,
+                                    "country" : "US",
+                                    "sunrise" : 1712575229,
+                                    "id" : 2010190,
+                                    "type" : 2
+                                  },
+                                  "coord" : {
+                                    "lat" : 41.875599999999999,
+                                    "lon" : -87.624399999999994
+                                  },
+                                  "cod" : 200,
+                                  "base" : "stations",
+                                  "main" : {
+                                    "feels_like" : 44.350000000000001,
+                                    "pressure" : 1010,
+                                    "temp_max" : 51.840000000000003,
+                                    "temp" : 48.899999999999999,
+                                    "temp_min" : 44.149999999999999,
+                                    "humidity" : 75
+                                  },
+                                  "visibility" : 10000,
+                                  "dt" : 1712557654,
+                                  "weather" : [
+                                    {
+                                      "icon" : "01n",
+                                      "main" : "Clear",
+                                      "id" : 800,
+                                      "description" : "clear sky"
+                                    }
+                                  ],
+                                  "id" : 4887398,
+                                  "clouds" : {
+                                    "all" : 0
+                                  }
+                                }
+                                """
+                
+                expect(WeatherResponse(json: JSON(parseJSON: jsonString))).to(beNil())
+            }
         }
     }
-
 }
