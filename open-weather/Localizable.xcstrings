@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Detail" : {
-      "comment" : "WeatherDetailViewController title"
-    },
     "Enter city name or zip code" : {
 
     },

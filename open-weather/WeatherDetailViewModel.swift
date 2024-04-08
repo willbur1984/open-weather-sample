@@ -35,6 +35,11 @@ final class WeatherDetailViewModel: BaseViewModel {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
     // MARK: - Public Properties
+    var title: AnyPublisher<String, Never> {
+        $response.map(\.name)
+            .eraseToAnyPublisher()
+    }
+    
     @Published
     private(set) var snapshot = Snapshot()
     
@@ -64,10 +69,10 @@ final class WeatherDetailViewModel: BaseViewModel {
                 $0.appendSections([.default])
                 $0.appendItems([
                     .default(imageURL: response.weatherIconURL, title: response.weatherDescription.localizedCapitalized),
-                    .default(imageURL: nil, title: "Temperature: \(Measurement<UnitTemperature>(value: response.temperature, unit: .current).formatted())"),
-                    .default(imageURL: nil, title: "Feels like: \(Measurement<UnitTemperature>(value: response.temperatureFeelsLike, unit: .current).formatted())"),
-                    .default(imageURL: nil, title: "Low: \(Measurement<UnitTemperature>(value: response.temperatureLow, unit: .current).formatted())"),
-                    .default(imageURL: nil, title: "High: \(Measurement<UnitTemperature>(value: response.temperatureHigh, unit: .current).formatted())")
+                    .default(imageURL: nil, title: String.localizedStringWithFormat("Temperature: %@", Measurement<UnitTemperature>(value: response.temperature, unit: .current).formatted())),
+                    .default(imageURL: nil, title: String.localizedStringWithFormat("Feels like: %@", Measurement<UnitTemperature>(value: response.temperatureFeelsLike, unit: .current).formatted())),
+                    .default(imageURL: nil, title: String.localizedStringWithFormat("Low: %@", Measurement<UnitTemperature>(value: response.temperatureLow, unit: .current).formatted())),
+                    .default(imageURL: nil, title: String.localizedStringWithFormat("High: %@", Measurement<UnitTemperature>(value: response.temperatureHigh, unit: .current).formatted()))
                 ])
             }
         }

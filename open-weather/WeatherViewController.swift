@@ -24,12 +24,12 @@ final class WeatherViewController: BaseViewController, UITextFieldDelegate {
         }
     private let textField = UITextField().also {
         $0.borderStyle = .roundedRect
-        $0.placeholder = String(localized: "Enter city name or zip code")
+        $0.placeholder = String(localized: "Enter city name or zip code", comment: "TextField placeholder")
     }
     private let button = KDIButton(type: .system)
         .setTranslatesAutoresizingMaskIntoConstraints()
         .also {
-            $0.setTitle(String(localized: "Request Forecast"), for: .normal)
+            $0.setTitle(String(localized: "Request Forecast", comment: "Button title"), for: .normal)
         }
     
     private let viewModel = WeatherViewModel()

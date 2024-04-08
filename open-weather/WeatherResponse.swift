@@ -12,6 +12,7 @@ struct WeatherResponse {
     // MARK: - Public Properties
     let latitude: Double
     let longitude: Double
+    let name: String
     let weatherDescription: String
     let weatherIconURL: URL
     let temperature: Double
@@ -27,6 +28,7 @@ extension WeatherResponse {
             let coordinatesDictionary = json["coord"].dictionary,
             let latitude = coordinatesDictionary["lat"]?.double,
             let longitude = coordinatesDictionary["lon"]?.double,
+            let name = json["name"].string,
             let weatherDictionary = json["weather"].array?.first,
             let weatherDescription = weatherDictionary["description"].string,
             let weatherIcon = weatherDictionary["icon"].string,
@@ -40,6 +42,7 @@ extension WeatherResponse {
         }
         self.latitude = latitude
         self.longitude = longitude
+        self.name = name
         self.weatherDescription = weatherDescription
         self.weatherIconURL = weatherIconURL
         self.temperature = temperature

@@ -5,6 +5,7 @@
 //  Created by William Towe on 4/7/24.
 //
 
+import CombineExt
 import Feige
 import Foundation
 import Kingfisher
@@ -92,7 +93,15 @@ final class WeatherDetailViewController: BaseViewController {
     override func setup() {
         super.setup()
         
-        title = String(localized: "Detail", comment: "WeatherDetailViewController title")
+        viewModel.title
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self else {
+                    return
+                }
+                self.title = $0
+            }
+            .store(in: &cancellables)
     }
     
     override func viewDidLoad() {

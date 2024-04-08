@@ -11,6 +11,6 @@ import UIKit
 extension Error {
     // MARK: - Public Properties
     var localizedFailureReason: String? {
-        (self as? LocalizedError)?.localizedFailureReason
+        (self as? LocalizedError)?.failureReason
     }
 }
