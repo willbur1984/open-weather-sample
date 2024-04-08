@@ -5,11 +5,15 @@
 //  Created by William Towe on 4/7/24.
 //
 
+import Combine
 import Feige
 import Foundation
 import UIKit
 
 open class BaseViewController: UIViewController {
+    // MARK: - Public Properties
+    open lazy var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Public Functions
     /**
      Called before the receiver's view is loaded.

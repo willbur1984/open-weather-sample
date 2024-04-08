@@ -4,8 +4,17 @@
     "Detail" : {
       "comment" : "WeatherDetailViewController title"
     },
+    "Enter city name or zip code" : {
+
+    },
+    "Okay" : {
+
+    },
     "Open Weather" : {
       "comment" : "WeatherViewController title"
+    },
+    "Request Forecast" : {
+
     }
   },
   "version" : "1.0"
