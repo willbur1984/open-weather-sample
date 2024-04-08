@@ -19,7 +19,7 @@ extension UnitTemperature {
      Returns the current `UnitTemperature` based on the user's locale.
      */
     static var current: UnitTemperature {
-        Locale.current.usesMetricSystem ? .celsius : .fahrenheit
+        Locale.autoupdatingCurrent.usesMetricSystem ? .celsius : .fahrenheit
     }
 }
 
@@ -96,20 +96,26 @@ final class WeatherDetailViewModel: BaseViewModel {
     override func setup() {
         super.setup()
         
-        $response.map { response in
-            Snapshot().also {
-                $0.appendSections([.default])
-                $0.appendItems([
-                    .default(imageURL: response.weatherIconURL, title: response.weatherDescription.localizedCapitalized),
-                    .default(imageURL: nil, title: String.localizedStringWithFormat("Temperature: %@", Measurement<UnitTemperature>(value: response.temperature, unit: .current).formatted())),
-                    .default(imageURL: nil, title: String.localizedStringWithFormat("Feels like: %@", Measurement<UnitTemperature>(value: response.temperatureFeelsLike, unit: .current).formatted())),
-                    .default(imageURL: nil, title: String.localizedStringWithFormat("Low: %@", Measurement<UnitTemperature>(value: response.temperatureLow, unit: .current).formatted())),
-                    .default(imageURL: nil, title: String.localizedStringWithFormat("High: %@", Measurement<UnitTemperature>(value: response.temperatureHigh, unit: .current).formatted()))
-                ])
+        NotificationCenter.default.publisher(for: NSLocale.currentLocaleDidChangeNotification)
+            .map { _ in
+                ()
             }
-        }
-        .assign(to: \WeatherDetailViewModel.snapshot, on: self, ownership: .weak)
-        .store(in: &cancellables)
+            .prepend(())
+            .combineLatest($response)
+            .map { _, response in
+                Snapshot().also {
+                    $0.appendSections([.default])
+                    $0.appendItems([
+                        .default(imageURL: response.weatherIconURL, title: response.weatherDescription.localizedCapitalized),
+                        .default(imageURL: nil, title: String.localizedStringWithFormat("Temperature: %@", Measurement<UnitTemperature>(value: response.temperature, unit: .kelvin).converted(to: .current).formatted())),
+                        .default(imageURL: nil, title: String.localizedStringWithFormat("Feels like: %@", Measurement<UnitTemperature>(value: response.temperatureFeelsLike, unit: .kelvin).converted(to: .current).formatted())),
+                        .default(imageURL: nil, title: String.localizedStringWithFormat("Low: %@", Measurement<UnitTemperature>(value: response.temperatureLow, unit: .kelvin).converted(to: .current).formatted())),
+                        .default(imageURL: nil, title: String.localizedStringWithFormat("High: %@", Measurement<UnitTemperature>(value: response.temperatureHigh, unit: .kelvin).converted(to: .current).formatted()))
+                    ])
+                }
+            }
+            .assign(to: \WeatherDetailViewModel.snapshot, on: self, ownership: .weak)
+            .store(in: &cancellables)
     }
     
     // MARK: - Initializers

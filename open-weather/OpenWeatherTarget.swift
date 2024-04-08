@@ -60,8 +60,7 @@ enum OpenWeatherTarget: TargetType {
             return .requestParameters(parameters: [
                 "lat": latitude,
                 "lon": longitude,
-                "appid": apiKey,
-                "units": Locale.current.usesMetricSystem ? "metric" : "imperial"
+                "appid": apiKey
             ], encoding: URLEncoding.queryString)
         }
     }
