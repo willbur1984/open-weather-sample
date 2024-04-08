@@ -38,7 +38,7 @@ final class WeatherViewController: BaseViewController, UITextFieldDelegate {
     override func setup() {
         super.setup()
         
-        self.title = String(localized: "Open Weather", comment: "WeatherViewController title")
+        title = String(localized: "Open Weather", comment: "WeatherViewController title")
     }
     
     override func viewDidLoad() {
@@ -100,7 +100,15 @@ final class WeatherViewController: BaseViewController, UITextFieldDelegate {
                 case .failure(let error):
                     self.present(UIAlertController(error: error), animated: true)
                 }
-            } receiveValue: { _ in
+            } receiveValue: { [weak self] in
+                guard let self else {
+                    return
+                }
+                guard let response = $0 else {
+                    self.present(UIAlertController(error: nil), animated: true)
+                    return
+                }
+                self.navigationController?.pushViewController(WeatherDetailViewController(response: response), animated: true)
             }
             .store(in: &cancellables)
     }

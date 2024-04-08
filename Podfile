@@ -17,6 +17,7 @@ abstract_target 'open-weather-shared' do
     pod 'Ditko', '~> 6.0'
     pod 'Feige', '~> 2.0'
     pod 'Moya/Combine', '~> 15.0'
+    pod 'Kingfisher', '~> 7.0'
     pod 'Romita', '~> 2.0'
     pod 'Stanley', '~> 3.0'
     pod 'SwiftyJSON', '~> 5.0'

@@ -13,8 +13,14 @@
     "Open Weather" : {
       "comment" : "WeatherViewController title"
     },
+    "Please try again later" : {
+      "comment" : "Default error localized failure reason"
+    },
     "Request Forecast" : {
 
+    },
+    "Something went wrong" : {
+      "comment" : "Default error localized description"
     }
   },
   "version" : "1.0"

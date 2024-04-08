@@ -29,7 +29,7 @@ final class WeatherViewModel: BaseViewModel {
         query = value
     }
     
-    func weather() -> AnyPublisher<JSON?, MoyaError> {
+    func weather() -> AnyPublisher<WeatherResponse?, MoyaError> {
         guard let query = query?.nilIfEmpty else {
             return Just(nil)
                 .setFailureType(to: MoyaError.self)

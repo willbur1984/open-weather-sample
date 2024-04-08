@@ -7,6 +7,7 @@ PODS:
     - Loki
     - Stanley
   - Feige (2.2.1)
+  - Kingfisher (7.10.1)
   - KSOFontAwesomeExtensions (2.0.1):
     - Stanley
   - Loki (2.0.1)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - CombineExt (~> 1.0)
   - Ditko (~> 6.0)
   - Feige (~> 2.0)
+  - Kingfisher (~> 7.0)
   - Moya/Combine (~> 15.0)
   - Nimble (~> 10.0)
   - Quick (~> 5.0)
@@ -40,6 +42,7 @@ SPEC REPOS:
     - CombineExt
     - Ditko
     - Feige
+    - Kingfisher
     - KSOFontAwesomeExtensions
     - Loki
     - Moya
@@ -55,6 +58,7 @@ SPEC CHECKSUMS:
   CombineExt: c4daa97ef75754d8ef319bd79edeef82652f3eea
   Ditko: 5ac2a9792b4179af2ee6b98687df96d70f1d9f3f
   Feige: e7baef397c9ad910ac11a75a53311b3b74a8adad
+  Kingfisher: bc5abe80a8e0144537ef1dd5a0b2621b04f7f439
   KSOFontAwesomeExtensions: 6ffc77c8b4fb2425fe9ab6c9e60271280ec81cf5
   Loki: 272252bb9ea40ba2ffac4fe226fe4e7f3cafa832
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
@@ -64,6 +68,6 @@ SPEC CHECKSUMS:
   Stanley: 888c0159ab9eee03d960465d8c4761d29b90a6dd
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: dd151126e52a14dea39b0dbd368087e33a6cc67c
+PODFILE CHECKSUM: fdf7085d0e872a0a0afed0ada5e36780ce432ceb
 
 COCOAPODS: 1.15.2

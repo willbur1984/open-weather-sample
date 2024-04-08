@@ -24,7 +24,7 @@ final class NetworkManager {
     private let provider: MoyaProvider<OpenWeatherTarget>
     
     // MARK: - Public Functions
-    func weather(query: String) -> AnyPublisher<JSON?, MoyaError> {
+    func weather(query: String) -> AnyPublisher<WeatherResponse?, MoyaError> {
         requestPublisher(target: .directGeocode(query: query, apiKey: openWeatherAPIKey))
             .map {
                 $0?.array?.first?.let {
@@ -33,16 +33,33 @@ final class NetworkManager {
             }
             .flatMap { [weak self] in
                 guard let self, let response = $0 else {
-                    return Just<JSON?>(nil)
+                    return Just<WeatherResponse?>(nil)
                         .setFailureType(to: MoyaError.self)
                         .eraseToAnyPublisher()
                 }
-                return self.requestPublisher(target: .weather(latitude: response.latitude, longitude: response.longitude, apiKey: openWeatherAPIKey))
+                return self.weatherPrivate(latitude: response.latitude, longitude: response.longitude)
             }
             .eraseToAnyPublisher()
     }
     
+    func refreshWeather(response: WeatherResponse) -> AnyPublisher<WeatherResponse?, MoyaError> {
+        weatherPrivate(latitude: response.latitude, longitude: response.longitude)
+    }
+    
     // MARK: - Private Functions
+    private func weatherPrivate(latitude: Double, longitude: Double) -> AnyPublisher<WeatherResponse?, MoyaError> {
+        requestPublisher(target: .weather(latitude: latitude, longitude: longitude, apiKey: openWeatherAPIKey))
+            .map {
+                $0?.let {
+                    WeatherResponse(json: $0)
+                }
+            }
+            .handleEvents(receiveOutput: {
+                os_log("response %@", String(describing: $0))
+            })
+            .eraseToAnyPublisher()
+    }
+    
     private func requestPublisher(target: OpenWeatherTarget) -> AnyPublisher<JSON?, MoyaError> {
         provider.requestPublisher(target)
             .map {
