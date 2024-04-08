@@ -8,8 +8,21 @@
 import Foundation
 import Moya
 
+/**
+ Represents the possible requests that can be made to the *Open Weather* API.
+ */
 enum OpenWeatherTarget: TargetType {
+    /**
+     The *Direct Geocoding* API, which takes a query and returns latitude/longitude coordinates.
+     
+     - SeeAlso: https://openweathermap.org/api/geocoding-api#direct
+     */
     case directGeocode(query: String, apiKey: String)
+    /**
+     The *Current Weather* API, which takes a latitude/longitude values and returns various weather information.
+     
+     - SeeAlso: https://openweathermap.org/current
+     */
     case weather(latitude: Double, longitude: Double, apiKey: String)
     
     // MARK: - TargetType

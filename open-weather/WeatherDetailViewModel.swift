@@ -15,6 +15,9 @@ import UIKit
 
 extension UnitTemperature {
     // MARK: - Public Properties
+    /**
+     Returns the current `UnitTemperature` based on the user's locale.
+     */
     static var current: UnitTemperature {
         Locale.current.usesMetricSystem ? .celsius : .fahrenheit
     }
@@ -22,33 +25,62 @@ extension UnitTemperature {
 
 extension NSDiffableDataSourceSnapshot: ScopeFunctions {}
 
+/**
+ Manages the state required for the `WeatherDetailViewController`.
+ */
 final class WeatherDetailViewModel: BaseViewModel {
     // MARK: - Public Types
+    /**
+     Represents a section in a vended `Snapshot`.
+     */
     enum Section: Hashable {
+        /**
+         The default section (there is only 1).
+         */
         case `default`
     }
     
+    /**
+     Represents an item in a vended `Snapshot`.
+     */
     enum Item: Hashable {
+        /**
+         The default item consisting of an options `imageURL` and non-nil `title`.
+         */
         case `default`(imageURL: URL?, title: String)
     }
     
+    /**
+     Convenience typedef for snapshot values.
+     */
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
     // MARK: - Public Properties
+    /**
+     Returns a publisher that sends the view controller title that should be displayed to the user and never fails.
+     */
     var title: AnyPublisher<String, Never> {
         $response.map(\.name)
             .eraseToAnyPublisher()
     }
     
+    /**
+     Returns the current snapshot value.
+     */
     @Published
     private(set) var snapshot = Snapshot()
     
     // MARK: - Private Properties
     @Published
     private var response: WeatherResponse
-    private let networkManager: NetworkManager
+    private let networkManager: NetworkManagerInterface
     
     // MARK: - Public Functions
+    /**
+     Returns a publisher that refreshes the current weather data, then sends an updated response or fails with an error.
+     
+     - Returns: The publisher
+     */
     func refresh() -> AnyPublisher<WeatherResponse?, MoyaError> {
         networkManager.refreshWeather(response: response)
             .handleEvents(receiveOutput: { [weak self] in
@@ -81,7 +113,14 @@ final class WeatherDetailViewModel: BaseViewModel {
     }
     
     // MARK: - Initializers
-    init(response: WeatherResponse, networkManager: NetworkManager = .shared) {
+    /**
+     Creates an instance.
+     
+     - Parameter response: The previously obtained `WeatherResponse`
+     - Parameter networkManager: The object conforming to the `NetworkManagerInterface` to use when making network requests
+     - Returns: The instance
+     */
+    init(response: WeatherResponse, networkManager: NetworkManagerInterface = NetworkManager.shared) {
         self.response = response
         self.networkManager = networkManager
         

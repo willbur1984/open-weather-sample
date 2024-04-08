@@ -10,6 +10,9 @@ import UIKit
 
 extension Error {
     // MARK: - Public Properties
+    /**
+     Returns the localized failure reason or nil.
+     */
     var localizedFailureReason: String? {
         (self as? LocalizedError)?.failureReason
     }

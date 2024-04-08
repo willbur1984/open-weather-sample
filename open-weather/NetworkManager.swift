@@ -14,8 +14,27 @@ import SwiftyJSON
 
 extension JSON: ScopeFunctions {}
 
-final class NetworkManager {
+/**
+ Represents the required functions needed by the various view models in the app.
+ 
+ - Note: This could be mocked in unit tests and injected into the view models if you did not want to worry about actually making network calls
+ */
+protocol NetworkManagerInterface {
+    // MARK: - Public Functions
+    func weather(query: String) -> AnyPublisher<WeatherResponse?, MoyaError>
+    func refreshWeather(response: WeatherResponse) -> AnyPublisher<WeatherResponse?, MoyaError>
+}
+
+/**
+ Manages access to the *Open Weather* API.
+ */
+final class NetworkManager: NetworkManagerInterface {
     // MARK: - Public Properties
+    /**
+     Returns the shared instance.
+     
+     - Note: `init()` is private, so you must use `shared` to access
+     */
     static let shared = NetworkManager()
     
     // MARK: - Private Properties
@@ -24,6 +43,12 @@ final class NetworkManager {
     private let provider: MoyaProvider<OpenWeatherTarget>
     
     // MARK: - Public Functions
+    /**
+     Returns a publisher that requests the weather conditions from the *Open Weather* API, then either sends a decoded `WeatherResponse` or fails with an error.
+     
+     - Parameter query: The query string to search for (e.g. `"Philadelphia"`)
+     - Returns: A publisher
+     */
     func weather(query: String) -> AnyPublisher<WeatherResponse?, MoyaError> {
         requestPublisher(target: .directGeocode(query: query, apiKey: openWeatherAPIKey))
             .map {
@@ -42,6 +67,12 @@ final class NetworkManager {
             .eraseToAnyPublisher()
     }
     
+    /**
+     Returns a publisher that requests the weather conditions for the provided `response` from the *Open Weather* API, then either sends an updated `WeatherResponse` or fails with an error.
+     
+     - Parameter response: The weather response to refresh
+     - Returns: The publisher
+     */
     func refreshWeather(response: WeatherResponse) -> AnyPublisher<WeatherResponse?, MoyaError> {
         weatherPrivate(latitude: response.latitude, longitude: response.longitude)
     }

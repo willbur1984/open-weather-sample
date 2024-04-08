@@ -32,6 +32,11 @@ private final class WeatherDetailCell: UITableViewCell {
         .setTranslatesAutoresizingMaskIntoConstraints()
     
     // MARK: - Public Functions
+    /**
+     Set the represented item to `item`, which updates the receiver appropriately.
+     
+     - Parameter item: The represented item
+     */
     func setItem(_ item: WeatherDetailViewModel.Item) {
         switch item {
         case let .default(imageURL, title):
@@ -66,6 +71,9 @@ private final class WeatherDetailCell: UITableViewCell {
     }
 }
 
+/**
+ Manages the UI for the detail screen in the app where received weather conditions are displayed to the user.
+ */
 final class WeatherDetailViewController: BaseViewController {
     // MARK: - Private Types
     private typealias DiffableDataSource = UITableViewDiffableDataSource<WeatherDetailViewModel.Section, WeatherDetailViewModel.Item>
@@ -107,8 +115,10 @@ final class WeatherDetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add our table view
         view.addSubview(tableView.also {
             $0.dataSource = diffableDataSource
+            // add the refresh control to the table view so user can pull to refresh current weather conditions
             $0.addSubview(refreshControl.also {
                 $0.addBlock(forControlEvents: .valueChanged) { [weak self] _, _ in
                     guard let self else {
@@ -136,6 +146,7 @@ final class WeatherDetailViewController: BaseViewController {
         })
         tableView.pinToSuperviewEdges()
         
+        // listen to changes to viewModel.snapshot and apply them
         viewModel.$snapshot
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
@@ -148,6 +159,12 @@ final class WeatherDetailViewController: BaseViewController {
     }
     
     // MARK: - Initializers
+    /**
+     Creates an instance that display the provided `response`.
+     
+     - Parameter response: The response to display
+     - Returns: The instance
+     */
     init(response: WeatherResponse) {
         viewModel = WeatherDetailViewModel(response: response)
         

@@ -10,6 +10,9 @@ import Foundation
 import os.log
 import SwiftyJSON
 
+/**
+ Represents a decoded response from the *Direct Geocoding* API.
+ */
 struct DirectGeocodeResponse: ScopeFunctions {
     // MARK: - Public Properties
     let latitude: Double

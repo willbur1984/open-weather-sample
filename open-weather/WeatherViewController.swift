@@ -14,6 +14,9 @@ import os.log
 import Romita
 import UIKit
 
+/**
+ Manages the UI for the initial screen in the app where the user can enter a city/zip code to search for weather conditions.
+ */
 final class WeatherViewController: BaseViewController, UITextFieldDelegate {
     // MARK: - Private Properties
     private let stackView = UIStackView()
@@ -44,6 +47,7 @@ final class WeatherViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add the stack view and our subviews
         view.addSubview(stackView.also {
             $0.addArrangedSubviews([
                 textField.also {
@@ -69,11 +73,13 @@ final class WeatherViewController: BaseViewController, UITextFieldDelegate {
         })
         stackView.pinToSuperviewEdges([], safeAreaLayoutGuideEdges: [.top, .leading, .trailing])
         
+        // bind viewModel.isEnabled -> button.isEnabled
         viewModel.$isEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \UIButton.isEnabled, on: button, ownership: .weak)
             .store(in: &cancellables)
         
+        // bind viewModel.isExecuting -> button.isLoading
         viewModel.$isExecuting
             .receive(on: DispatchQueue.main)
             .assign(to: \KDIButton.isLoading, on: button, ownership: .weak)

@@ -8,6 +8,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Represents a decoded response from the *Current Weather* API.
+ */
 struct WeatherResponse {
     // MARK: - Public Properties
     let latitude: Double

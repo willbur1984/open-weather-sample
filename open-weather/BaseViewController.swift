@@ -10,8 +10,24 @@ import Feige
 import Foundation
 import UIKit
 
+/**
+ Base view controller class that provides common behavior.
+ */
 open class BaseViewController: UIViewController {
     // MARK: - Public Properties
+    /**
+     A lazily created set of `AnyCancellable` objects that can be used to store `Combine` subscriptions.
+     
+     ```swift
+     publisher
+     .sink {
+        // do something on finish or failure
+     } receiveValue {
+        // do something with the value
+     }
+     .store(in: &cancellables)
+     ```
+     */
     open lazy var cancellables = Set<AnyCancellable>()
     
     // MARK: - Public Functions

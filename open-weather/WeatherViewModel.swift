@@ -12,23 +12,44 @@ import Foundation
 import Moya
 import SwiftyJSON
 
+/**
+ Manages the state required for the `WeatherViewController`.
+ */
 final class WeatherViewModel: BaseViewModel {
     // MARK: - Public Properties
+    /**
+     Returns whether the `weather(query:)` publisher should be called.
+     
+     - Note: This should be bound to the relevant UI control that allows the user to perform the search
+     */
     @Published
     private(set) var isEnabled = false
+    /**
+     Returns a request is being performed.
+     
+     - Note: This should be bound to the relevant loading indicator in the UI
+     */
     @Published
     private(set) var isExecuting = false
     
     // MARK: - Private Properties
-    private let networkManager: NetworkManager
+    private let networkManager: NetworkManagerInterface
     @Published
     private var query: String?
     
     // MARK: - Public Functions
+    /**
+     Updates the query value.
+     
+     - Parameter value: The new query value
+     */
     func setQuery(value: String?) {
         query = value
     }
     
+    /**
+     Returns a publisher that requests weather information for the current query value, then either sends a decoded `WeatherResponse` or fails with an error.
+     */
     func weather() -> AnyPublisher<WeatherResponse?, MoyaError> {
         guard let query = query?.nilIfEmpty else {
             return Just(nil)
@@ -61,7 +82,13 @@ final class WeatherViewModel: BaseViewModel {
     }
     
     // MARK: - Initializers
-    init(networkManager: NetworkManager = .shared) {
+    /**
+     Creates an instance.
+     
+     - Parameter networkManager: The object conforming to the `NetworkManagerInterface` to use when making network requests
+     - Returns: The instance
+     */
+    init(networkManager: NetworkManagerInterface = NetworkManager.shared) {
         self.networkManager = networkManager
         
         super.init()
