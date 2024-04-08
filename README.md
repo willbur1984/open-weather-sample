@@ -20,14 +20,14 @@ To setup and run the app:
 
 1. Clone the repo
 
-    git clone https://github.com/willbur1984/open-weather-sample.git
+        git clone https://github.com/willbur1984/open-weather-sample.git
 
 2. `cd` into the cloned directory
 
-    cd open-weather-sample
+        cd open-weather-sample
 
 3. Run the setup script
 
-    ./setup.sh
+        ./setup.sh
 
 4. Build and run the *open-weather* target
