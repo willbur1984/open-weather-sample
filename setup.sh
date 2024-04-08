@@ -32,12 +32,6 @@ function check_binary() {
 
 check_binary gem true "Refer to https://rubygems.org/ for install instructions"
 check_binary bundle true "Refer to https://bundler.io/ for install instructions"
-check_binary brew true "Refer to https://brew.sh/ for install instructions"
-
-if ! check_binary asdf
-then
-    brew install asdf
-fi
 
 bundle install
 bundle exec pod install
